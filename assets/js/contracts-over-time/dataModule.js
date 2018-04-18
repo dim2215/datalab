@@ -10,13 +10,13 @@ const dataModule = {
     activePanel: { id: null }
   },
 
-  loadPanelData: (panel, cb) => {
+  loadPanelData: (panel, cb, element) => {
     d3.json(
       `../../../data-lab-data/contracts-over-time/${panel}.json`,
       function(error, data) {
         if (error) throw error;
         dataModule.mem[panel] = data;
-        if (cb) cb(data);
+        if (cb) cb(data, element);
       }
     );
   }

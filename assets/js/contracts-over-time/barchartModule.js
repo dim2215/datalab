@@ -2,10 +2,10 @@
 ---
 
 const barchartModule = (function() {
-  function draw(data) {
+  function draw(data, element) {
     const margin = { top: 10, right: 10, bottom: 30, left: 100 },
-      width = $("#svg-1").width() - margin.left - margin.right,
-      height = $("#svg-1").height() - margin.top - margin.bottom;
+      width = $(element).width() - margin.left - margin.right,
+      height = $(element).height() - margin.top - margin.bottom;
     
     var x = d3
       .scaleBand()
@@ -14,7 +14,7 @@ const barchartModule = (function() {
     var y = d3.scaleLinear().range([height, 0]);
 
     var svg = d3
-      .select("#svg-1")
+      .select(element)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -58,9 +58,9 @@ const barchartModule = (function() {
       .style("opacity", 1);
   }
 
-  function remove(cb) {
+  function remove(cb, element) {
     d3
-      .select("#svg-1")
+      .select(element)
       .selectAll("*")
       .transition()
       .duration(400)

@@ -2,16 +2,20 @@
 ---
 
 const multiLinechartModule = (function() {
-  function draw(data, xAxisFormat) {
+  function draw(data, element) {
     const svgMargin = { top: 10, right: 10, bottom: 30, left: 100 },
-      width = $("#svg-1").width() - svgMargin.left - svgMargin.right,
-      height = $("#svg-1").height() - svgMargin.top - svgMargin.bottom;
+      width = $(element).width() - svgMargin.left - svgMargin.right,
+      height = $(element).height() - svgMargin.top - svgMargin.bottom;
 
     var parseDate = d3.timeParse("%Y-%m-%d");
 
+    console.log(element);
+
+    let xAxisFormat = "week"; // temporary
+
     // Add SVG
     var svg = d3
-      .select("#svg-1")
+      .select(element)
       .append("g")
       .attr("transform", `translate(${svgMargin.left},${svgMargin.top})`);
 
@@ -189,29 +193,29 @@ const multiLinechartModule = (function() {
         .text(d => d)
         .on("mouseover",(d) => {
           if(d === "Contract Modification"){
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(2)").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","0px");
           }else if (d === "New Contract"){
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(1)").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
           }else if (d === "Equipment/Facilities/Construction/Vehicles"){
-            d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
+            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
           }else if (d === "Miscellaneous"){
-            d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
+            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
           }else if (d === "Professional Services"){
-            d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(3)").style("stroke-width","1px");
+            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(3)").style("stroke-width","1px");
           }else if (d === "Telecomm & IT"){
-            d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(4)").style("stroke-width","1px");
+            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(4)").style("stroke-width","1px");
           }else if (d === "Weapons"){
-            d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select("#svg-1 > g > g.line-paths > path:nth-child(5)").style("stroke-width","1px");
+            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+            d3.select(element + " > g > g.line-paths > path:nth-child(5)").style("stroke-width","1px");
           }
         })
-        .on("mouseout",() => d3.selectAll("#svg-1 > g > g.line-paths > path").style("stroke-width","1px"));
+        .on("mouseout",() => d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","1px"));
 
       const legendDims = legend.node().getBBox();
 
@@ -237,9 +241,9 @@ const multiLinechartModule = (function() {
     );
   }
 
-  function remove(cb) {
+  function remove(cb, element) {
     d3
-      .select("#svg-1")
+      .select(element)
       .selectAll("*")
       .transition()
       .duration(400)

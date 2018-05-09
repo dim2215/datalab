@@ -77,4 +77,14 @@
   #svg-1 > g > g.legend.legend-1 > g > text{
     cursor: pointer;
   }
+  .parallaxParent {
+		height: 100vh;
+		overflow: hidden;
+	}
+	.parallaxParent > * {
+		height: 200%;
+		position: relative;
+		top: -100%;
+	}
+
 }

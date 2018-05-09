@@ -1,7 +1,7 @@
 ---
 ---
 
-var controller = new ScrollMagic.Controller();
+// var controller = new ScrollMagic.Controller({globalSceneOptions:{triggerHook: "onEnter",duration: "200%"}});
 
 $(function() {
 
@@ -70,13 +70,11 @@ $(function() {
   for (let pan of panels) {
       setDimsOfSvg(pan.element);
       loadPanelData(pan.dataset, pan.module['draw'], pan.element);
-      break;
+      // break;
   }
 
   // load remaining datasets
   panels.forEach(p => loadPanelData(p.dataset));
-
-  
 
   /*
   new ScrollMagic.Scene({ triggerElement: "#svg-1", triggerHook: "onEnter" })
@@ -89,12 +87,32 @@ $(function() {
       .addTo(controller);
       */
 
-      new ScrollMagic.Scene({ triggerElement: "#breakpoint-1", duration: 800 })
-        .setPin("#svg-1")
-        .addTo(controller);
-      
+  // new ScrollMagic.Scene({ triggerElement: "#breakpoint-1"})
+  //   .setPin("#svg-1")
+  //   .addTo(controller);
 
-        /*
+  // new ScrollMagic.Scene({ triggerElement: "#svg-1"})
+  //   .setPin("#svg-2")
+  //   .addTo(controller);
+
+  // new ScrollMagic.Scene({ triggerElement: "#svg-2"})
+  //   .setPin("#svg-3")
+  //   .addTo(controller);
+
+  // new ScrollMagic.Scene({ triggerElement: "#svg-3"})
+  //   .setPin("#svg-4")
+  //   .addTo(controller);
+
+  // new ScrollMagic.Scene({ triggerElement: "#svg-4"})
+  //   .setPin("#svg-5")
+  //   .addTo(controller);
+
+  // new ScrollMagic.Scene({ triggerElement: "#svg-5"})
+  //   .setPin("#svg-6")
+  //   .addTo(controller);
+
+
+/*
   new ScrollMagic.Scene({ triggerElement: "#svg-2", triggerHook: "onEnter" })
       .duration("50%")
       .addIndicators()
@@ -116,4 +134,26 @@ $(function() {
   new ScrollMagic.Scene({ offset: 1600, duration: 100 }).setPin("#svg-5").addTo(controller);
   new ScrollMagic.Scene({ offset: 2000, duration: 100 }).setPin("#svg-6").addTo(controller);
   */
+
+// init controller
+var controller = new ScrollMagic.Controller({globalSceneOptions: {triggerHook: "onEnter", duration: 800}});
+
+// build scenes
+new ScrollMagic.Scene({triggerElement: "#parallax1"})
+        .setPin("#svg-1")
+        .addIndicators()
+        .addTo(controller);
+
+new ScrollMagic.Scene({triggerElement: "#parallax2"})
+        .setPin("#svg-2")
+        .addIndicators()
+        .addTo(controller);
+
+new ScrollMagic.Scene({triggerElement: "#parallax3"})
+        .setPin("#svg-3")
+        .addIndicators()
+        .addTo(controller);
+
+
+
 });

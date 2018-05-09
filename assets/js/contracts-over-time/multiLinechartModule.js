@@ -8,7 +8,7 @@ const multiLinechartModule = (function() {
       height = $(element).height() - svgMargin.top - svgMargin.bottom;
 
     var parseDate = d3.timeParse("%Y-%m-%d");
-
+    console.log(data)
     console.log(element);
 
     let xAxisFormat = "week"; // temporary
@@ -162,83 +162,83 @@ const multiLinechartModule = (function() {
           .tickFormat(chartModule.formatNumberAsText)
       );
 
-    function addLegend(legendName, legendData, colorScale, position) {
-      const legendSpace = 10;
+    // function addLegend(legendName, legendData, colorScale, position) {
+    //   const legendSpace = 10;
 
-      const legend = svg
-        .append("g")
-        .attr("class", `legend ${legendName}`)
-        .attr("transform", `translate(${position === "right" ? width : 0},0)`);
+    //   const legend = svg
+    //     .append("g")
+    //     .attr("class", `legend ${legendName}`)
+    //     .attr("transform", `translate(${position === "right" ? width : 0},0)`);
 
-      const legendBackground = legend
-        .append("rect")
-        .attr("fill", "#333333")
-        .attr("class", `${legendName}-background`);
+    //   const legendBackground = legend
+    //     .append("rect")
+    //     .attr("fill", "#333333")
+    //     .attr("class", `${legendName}-background`);
 
-      legend
-        .append("g")
-        .attr("class", `legend-items ${legendName}-items`)
-        .selectAll(`.${legendName}-item`)
-        .data(legendData)
-        .enter()
-        .append("text")
-        .attr("class", `legend-item ${legendName}-item`)
-        .attr("x", 0)
-        .attr("y", (d, i) => legendSpace * i * 2 + svgMargin.top / 2)
-        .style("fill", (d, i) => colorScale(i))
-        .style("font-size", "12px")
-        .style("font-family", "sans-serif")
-        .style("text-anchor", position === "right" ? "end" : "start")
-        .style("alignment-baseline", "hanging")
-        .text(d => d)
-        .on("mouseover",(d) => {
-          if(d === "Contract Modification"){
-            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","0px");
-          }else if (d === "New Contract"){
-            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
-          }else if (d === "Equipment/Facilities/Construction/Vehicles"){
-            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
-          }else if (d === "Miscellaneous"){
-            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
-          }else if (d === "Professional Services"){
-            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(3)").style("stroke-width","1px");
-          }else if (d === "Telecomm & IT"){
-            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(4)").style("stroke-width","1px");
-          }else if (d === "Weapons"){
-            d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
-            d3.select(element + " > g > g.line-paths > path:nth-child(5)").style("stroke-width","1px");
-          }
-        })
-        .on("mouseout",() => d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","1px"));
+    //   legend
+    //     .append("g")
+    //     .attr("class", `legend-items ${legendName}-items`)
+    //     .selectAll(`.${legendName}-item`)
+    //     .data(legendData)
+    //     .enter()
+    //     .append("text")
+    //     .attr("class", `legend-item ${legendName}-item`)
+    //     .attr("x", 0)
+    //     .attr("y", (d, i) => legendSpace * i * 2 + svgMargin.top / 2)
+    //     .style("fill", (d, i) => colorScale(i))
+    //     .style("font-size", "12px")
+    //     .style("font-family", "sans-serif")
+    //     .style("text-anchor", position === "right" ? "end" : "start")
+    //     .style("alignment-baseline", "hanging")
+    //     .text(d => d)
+    //     .on("mouseover",(d) => {
+    //       if(d === "Contract Modification"){
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","0px");
+    //       }else if (d === "New Contract"){
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
+    //       }else if (d === "Equipment/Facilities/Construction/Vehicles"){
+    //         d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(1)").style("stroke-width","1px");
+    //       }else if (d === "Miscellaneous"){
+    //         d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(2)").style("stroke-width","1px");
+    //       }else if (d === "Professional Services"){
+    //         d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(3)").style("stroke-width","1px");
+    //       }else if (d === "Telecomm & IT"){
+    //         d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(4)").style("stroke-width","1px");
+    //       }else if (d === "Weapons"){
+    //         d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","0px");
+    //         d3.select(element + " > g > g.line-paths > path:nth-child(5)").style("stroke-width","1px");
+    //       }
+    //     })
+    //     .on("mouseout",() => d3.selectAll(element + " > g > g.line-paths > path").style("stroke-width","1px"));
 
-      const legendDims = legend.node().getBBox();
+    //   const legendDims = legend.node().getBBox();
 
-      legendBackground
-        .attr("width", legendDims.width)
-        .attr("height", legendDims.height + 20)
-        .attr("x", position === "right" ? -legendDims.width : 0)
-        .attr("y", -10);
-    }
+    //   legendBackground
+    //     .attr("width", legendDims.width)
+    //     .attr("height", legendDims.height + 20)
+    //     .attr("x", position === "right" ? -legendDims.width : 0)
+    //     .attr("y", -10);
+    // }
 
-    addLegend(
-      "legend-1", 
-      Object.keys(data.lineData), 
-      lineColor, 
-      "right"
-    );
+    // addLegend(
+    //   "legend-1", 
+    //   Object.keys(data.lineData), 
+    //   lineColor, 
+    //   "right"
+    // );
 
-    addLegend(
-      "legend-2",
-      Object.keys(data.verticalLineData),
-      verticalLineColor,
-      "left"
-    );
+    // addLegend(
+    //   "legend-2",
+    //   Object.keys(data.verticalLineData),
+    //   verticalLineColor,
+    //   "left"
+    // );
   }
 
   function remove(cb, element) {
